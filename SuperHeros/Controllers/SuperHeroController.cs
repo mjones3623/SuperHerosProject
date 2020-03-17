@@ -4,12 +4,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SuperHeros.Data;
 using SuperHeros.Data.Migrations;
 
 namespace SuperHeros.Controllers
 {
     public class SuperHeroController : Controller
     {
+        ApplicationDbContext _context;
+        public SuperHeroController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         // GET: SuperHero
         public ActionResult Index()
         {
@@ -26,7 +33,7 @@ namespace SuperHeros.Controllers
         public ActionResult Create()
         {
             SuperHero superHero = new SuperHero();
-            return View();
+            return View(superHero);
         }
 
         // POST: SuperHero/Create
@@ -37,7 +44,8 @@ namespace SuperHeros.Controllers
             try
             {
                 // TODO: Add insert logic here
-
+                _context.SuperHeroes.Add(superHero);
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch

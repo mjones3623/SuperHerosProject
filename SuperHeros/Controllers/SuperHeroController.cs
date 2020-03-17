@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SuperHeros.Data;
 using SuperHeros.Data.Migrations;
+using SuperHeros.Models;
 
 namespace SuperHeros.Controllers
 {
@@ -20,13 +21,15 @@ namespace SuperHeros.Controllers
         // GET: SuperHero
         public ActionResult Index()
         {
-            return View();
+            var heroes = _context.SuperHeroes.ToList();
+            return View(heroes);
         }
 
         // GET: SuperHero/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var hero = _context.SuperHeroes.Where(i => i.Id == id);
+            return View(hero);
         }
 
         // GET: SuperHero/Create
@@ -57,18 +60,19 @@ namespace SuperHeros.Controllers
         // GET: SuperHero/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var hero = _context.SuperHeroes.Where(i => i.Id == id);
+            return View(hero);
         }
 
-        // POST: SuperHero/Edit/5
+        //POST: SuperHero/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, SuperHero superHero)
         {
             try
             {
                 // TODO: Add update logic here
-
+                var hero = _context.SuperHeroes.Where(i => i.Id == id);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -77,21 +81,25 @@ namespace SuperHeros.Controllers
             }
         }
 
-        // GET: SuperHero/Delete/5
+        //GET: SuperHero/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var hero = _context.SuperHeroes.Where(i => i.Id == id);
+
+            return View(hero);
         }
 
-        // POST: SuperHero/Delete/5
+        //POST: SuperHero/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, SuperHero superHero)
         {
             try
             {
                 // TODO: Add delete logic here
-
+                var hero = _context.SuperHeroes.Where(i => i.Id == id);
+                _context.SuperHeroes.Remove(superHero);
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch

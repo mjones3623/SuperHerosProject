@@ -10,8 +10,8 @@ using SuperHeros.Data;
 namespace SuperHeros.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200316200446_SuperHero")]
-    partial class SuperHero
+    [Migration("20200317161239_SuperHeroMigration")]
+    partial class SuperHeroMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

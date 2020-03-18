@@ -73,7 +73,8 @@ namespace SuperHeros.Controllers
             {
                 // TODO: Add update logic here
                 
-                SuperHero hero = _context.SuperHeroes.Where(i => i.Id == id).FirstOrDefault(); 
+                SuperHero hero = _context.SuperHeroes.Where(i => i.Id == id).FirstOrDefault();
+
                 hero = superHero;
                 _context.SaveChanges();
                 return RedirectToAction(nameof(Index));

@@ -28,7 +28,7 @@ namespace SuperHeros.Controllers
         // GET: SuperHero/Details/5
         public ActionResult Details(int id)
         {
-            var hero = _context.SuperHeroes.Where(i => i.Id == id);
+            var hero = _context.SuperHeroes.Where(i => i.Id == id).FirstOrDefault();
             return View(hero);
         }
 
@@ -60,7 +60,7 @@ namespace SuperHeros.Controllers
         // GET: SuperHero/Edit/5
         public ActionResult Edit(int id)
         {
-            var hero = _context.SuperHeroes.Where(i => i.Id == id);
+            var hero = _context.SuperHeroes.Where(i => i.Id == id).FirstOrDefault(); 
             return View(hero);
         }
 
@@ -72,7 +72,10 @@ namespace SuperHeros.Controllers
             try
             {
                 // TODO: Add update logic here
-                var hero = _context.SuperHeroes.Where(i => i.Id == id);
+                
+                SuperHero hero = _context.SuperHeroes.Where(i => i.Id == id).FirstOrDefault(); 
+                hero = superHero;
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -84,7 +87,7 @@ namespace SuperHeros.Controllers
         //GET: SuperHero/Delete/5
         public ActionResult Delete(int id)
         {
-            var hero = _context.SuperHeroes.Where(i => i.Id == id);
+            var hero = _context.SuperHeroes.Where(i => i.Id == id).FirstOrDefault(); 
 
             return View(hero);
         }
